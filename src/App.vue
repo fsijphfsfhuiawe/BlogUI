@@ -1,6 +1,7 @@
 <script setup>
 // 可以在这里定义变量
 import { ref } from 'vue';
+import BarChart from './components/BarChart.vue';
 import BlogPost from './components/BlogPost.vue';
 
 // // 定义数组
@@ -76,7 +77,11 @@ function handleTitleClick(title){
       share
     </button>
   </BlogPost>
-  
+
+  <div class="wrapper">
+    <BarChart class="chart"/>
+  </div>
+
   <!-- 处理事件 -->
   <h3 v-if="showTotal">total={{total}}</h3>
   <button @click="toggleTotal">{{showTotal ? "hide":"show"}}</button>
@@ -92,9 +97,10 @@ function handleTitleClick(title){
   </form>
 </template>
 
-<style scoped>
+<style>
 form{
   display: grid;
   margin-top: 2em;
 }
+
 </style>
