@@ -1,29 +1,29 @@
 <script setup>
 // 可以在这里定义变量
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import BlogPost from './components/BlogPost.vue';
 
-// 定义数组
-const blogs = ref([
-  {
-    id:1,
-    title:"Personal Blog",
-    content:"This is a personal blog",
-    link:"/blog-main-page",
-  },
-  {
-    id:2,
-    title:"Personal Blog",
-    content:"This is a personal blog",
-    link:"/blog-main-page",
-  },
-  {
-  id:3,
-  title:"Personal Blog",
-  content:"This is a personal blog",
-  link:"/blog-main-page",
-}
-])
+// // 定义数组
+// const blogs = ref([
+//   {
+//     id:1,
+//     title:"Personal Blog",
+//     content:"This is a personal blog",
+//     link:"/blog-main-page",
+//   },
+//   {
+//     id:2,
+//     title:"Personal Blog",
+//     content:"This is a personal blog",
+//     link:"/blog-main-page",
+//   },
+//   {
+//   id:3,
+//   title:"Personal Blog",
+//   content:"This is a personal blog",
+//   link:"/blog-main-page",
+// }
+// ])
 
 
 // const blog = ref({
@@ -37,7 +37,7 @@ const blogs = ref([
 const showTotal = ref(true);
 
 // 使用ref定义的数据，必须用value才能访问到真实数据
-const total = computed(()=>blogs.value.length);
+// const total = computed(()=>blogs.value.length);
 
 // js的函数
 function toggleTotal(){
@@ -52,13 +52,17 @@ const initialBlogForm = {
 
 const blogForm = ref({...initialBlogForm});
 
-function addBlog(){
-  blogs.value.push({
-    id: blogs.value.length + 1,
-    ...blogForm.value,
-  });
-  // 提交完成后刷新提交面板(重新设置为初始值)
-  blogForm.value = {...initialBlogForm};
+// function addBlog(){
+//   blogs.value.push({
+//     id: blogs.value.length + 1,
+//     ...blogForm.value,
+//   });
+//   // 提交完成后刷新提交面板(重新设置为初始值)
+//   blogForm.value = {...initialBlogForm};
+// }
+
+function handleTitleClick(title){
+  console.log(title);
 }
 
 </script>
@@ -66,15 +70,16 @@ function addBlog(){
 <!-- 在main.css里可以修改样式 -->
 <template>
   <!-- 在template对script里的变量或常量进行引用 -->
-  <BlogPost v-for="blog in blogs" :key="blog.id" v-bind="blog">
+  <BlogPost @title-click="handleTitleClick" v-for="blog in blogs" :key="blog.id" v-bind="blog">
     <!-- 实现自定义 -->
     <button>
       share
     </button>
   </BlogPost>
+  
   <!-- 处理事件 -->
   <h3 v-if="showTotal">total={{total}}</h3>
-      <button @click="toggleTotal">{{showTotal ? "hide":"show"}}</button>
+  <button @click="toggleTotal">{{showTotal ? "hide":"show"}}</button>
 
   <form @submit.prevent="addBlog">
     <label for="blogTitle">blog title</label>
